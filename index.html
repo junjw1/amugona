@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Amugona Bang</title>
+  <style>
+    .center {
+position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    }
+    .create { display: none; }
+    .create .name { display: none; }
+    .create .confirm { display: none; }
+
+    input {
+      border-radius: 3px;
+      border: 1px solid #eee;
+      width: 220px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="center">
+  <!-- main page -->
+  <div class="main">
+    <h1>Hello Bang!</h1>
+    <input placeholder="email" />
+    <button id="mainToSetname">create new bang</button>
+  </div>
+
+  <!-- Create Bang -->
+  <div class="create">
+    <!-- input bang -->
+    <div class="bang">
+      <h1>Bang Name</h1>
+      <input placeholder="bang name" />
+      <input placeholder="bang address" />
+      <button id="bangNameToSetUsername">Next</button>
+    </div>
+
+    <!-- input name -->
+    <div class="name">
+      <h1>set name and nickname</h1>
+      <h5>your name</h5>
+      <input placeholder="first name" />
+      <input placeholder="last name" />
+      <h5>your nickname</h5>
+      <input placeholder="nickname" />
+      <button id="UsernameToConfirm">Next</button>
+    </div>
+
+    <!-- confirm page -->
+    <div class="confirm">
+      <h1> last page </h1>
+    </div>
+  </div>
+</div>
+  <script src="/socket.io/socket.io.js/"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script>
+    var $setEmail = $('#mainToSetname');
+    var $setBang = $('#bangNameToSetUsername');
+    var $setName = $('#UsernameToConfirm');
+
+    $setEmail.click(function () {
+            $('.main').fadeOut();
+            $('.create').show();
+    });
+
+    $setBang.click(function () {
+            $('.bang').fadeOut();
+            $('.name').show();
+            });
+
+    $setName.click(function () {
+            $('.name').fadeOut();
+            $('.confirm').show();
+    });
+  </script>
+</body>
+</html>
