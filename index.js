@@ -4,6 +4,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = 3000;
 
+var numUsers = 0;
+
 server.listen(port, function () {
 	console.log("server listening ...");
 });
@@ -15,5 +17,13 @@ app.get('/', function (req, res) {
 
 // connect
 io.on('connection', function (socket) {
-	console.log('hello');
+	socket.on('add user', function (data) {
+		socket.username = data;		// 이름 저장
+		numUsers++;
+
+		io.emit('user joined', {
+			username: socket.username,
+			numUsers: numUsers
+		});
+	});
 });

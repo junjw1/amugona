@@ -23,7 +23,7 @@
 
         .title {
             text-align: center;
-            font-family: 나눔고딕;
+            font-family: "나눔명조 Regular";
         }
 
         .create.page {
@@ -43,7 +43,6 @@
         }
 
         input {
-            text-align: right;
             width: 220px;
         }
 
@@ -83,6 +82,23 @@
             padding:15px;
             margin:0 auto;
         }
+
+        /* 채팅창 스타일시트 */
+        .bangChat {
+          padding: 5px 10px;
+        }
+        .nav {
+          background-color: #eee;
+          height: 900px;
+          padding: 5px 10px;
+        }
+        #inputMessage {
+          position: fixed;
+          margin-right: 10px;
+          width: 83%;
+          bottom: 0;
+          right: 0;
+        }
     </style>
 
 </head>
@@ -104,10 +120,10 @@
                 <div class="form">
                     <h1>Edit your Bang Name</h1>
                     <p>
-                        <input class="inputbangName" type="text" placeholder="BangName">
+                        <input class="inputBangName" type="text" placeholder="BangName">
                     </p>
                     <p>
-                        <input class="inputbangAddr" type="text" placeholder="BangAddress">
+                        <input class="inputBangAddr" type="text" placeholder="BangAddress">
                         <label>.amugona.com</label>
                     </p>
                 </div>
@@ -123,13 +139,13 @@
                     <p>
                         your name
            
-                        <input class="inputfirstName" type="text" placeholder="first name">
-                        <input class="inputlastName" type="text" placeholder="last name">
+                        <input class="inputFirstName" type="text" placeholder="first name">
+                        <input class="inputLastName" type="text" placeholder="last name">
                     </p>
                     <p>
                         your nickname
            
-                        <input class="inputnickName" type="text" placeholder="nickname">
+                        <input class="inputNickName" type="text" placeholder="nickname">
                     </p>
                 </div>
                 <div class="bot">
@@ -174,16 +190,37 @@
 
                 </div>
             </div>
-
-
         </div>
 
+        <!-- Chat Room -->
         <div class="bangChat">
+            <div class="row">
+              <div class="col-md-2">
+                <ul class="nav">
+                  <li>방이름</li>
+                  <li>칸막이</li>
+                  <li>유저</li>
+                </ul>
+              </div>
+              <div class="col-md-10">
+                <!-- 칸막이 정보 -->
+                <div class="head">
+                  <h1 class="header">
+                    칸막이이름<br>
+                    <small>멤버수</small>
+                    <small>칸막이설명</small>
+                  </h1>
+                  <hr>
+                </div>
 
-            <h1>BANG</h1>
-
+                <!-- 채팅창 -->
+                <div class="Chat">
+                  <ul class="messages"></ul>
+                  <input type="text" id="inputMessage" placeholder="type here...">
+                </div>
+              </div>
+            </div>
         </div>
-
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -220,13 +257,25 @@
         var $bangChat = $('.bangChat');
 
         var $currentInput = $inputEmail.focus();
+
+        var $messages = $('.messages');
+        var $inputMessage = $('#inputMessage');
         var page = 0;
+        var addedUser = false;
 
         var socket = io();
 
-        $btnInviteLater.click(function () {
+        function setUsername() {
+          if(addedUser) return;
+          else {
+            socket.emit('add user', NickName);
+          }
+        }
+
+        $btnInviteLater.click(function () {   // go to bangChat
             $invitePage.fadeOut();
             $bangChat.show();
+            setUsername();
         })
 
         $window.keydown(function (event) {
@@ -235,42 +284,51 @@
             }
 
             if (event.which === 13) {
-                switch (page) {
-                    case 0: // email
-                        Email = $inputEmail.val();
+                if(addedUser) {   // 접속
 
-                        $mainPage.fadeOut();
-                        $createPage.show();
-                        break;
-                    case 1: // bang
-                        BangName = $inputBangName.val();
-                        BangAddr = $inputBangAddr.val();
+                } else {    // 비 접속
+                  switch (page) {
+                      case 0: // email
+                          Email = $inputEmail.val();
 
-                        $namePage.show();
-                        $bangPage.fadeOut();
-                        break;
-                    case 2: // name
+                          $mainPage.fadeOut();
+                          $createPage.show();
+                          break;
+                      case 1: // bang
+                          BangName = $inputBangName.val();
+                          BangAddr = $inputBangAddr.val();
 
-                        // set input
-                        $editEmail.val(Email);
-                        $editBangName.val(BangName);
-                        $editBangAddr.val(BangAddr + '.amugona.com');
-                        $editName.val($inputFirstName.val() + $inputLastName.val());
-                        $editNickName.val($inputNickName.val());
+                          $namePage.show();
+                          $bangPage.fadeOut();
+                          break;
+                      case 2: // name
+                          NickName = $inputNickName.val();
 
-                        $detailPage.show();
-                        $namePage.fadeOut();
-                        break;
-                    case 3: // detail
-                        $detailPage.fadeOut();
-                        $invitePage.show();
+                          // set input
+                          $editEmail.val(Email);
+                          $editBangName.val(BangName);
+                          $editBangAddr.val(BangAddr + '.amugona.com');
+                          $editName.val($inputFirstName.val() + $inputLastName.val());
+                          $editNickName.val($inputNickName.val());
 
-                        break;
-                    default:
-                        break;
-                }
-                page++;
+                          $detailPage.show();
+                          $namePage.fadeOut();
+                          break;
+                      case 3: // detail
+                          $detailPage.fadeOut();
+                          $invitePage.show();
+                          break;
+                      default:
+                          break;
+                  }
+                  page++;
+              }
             }
+        });
+
+        // socket event
+        socket.on('user joined', function(data) {
+          $messages.append($('<li>').text(data.username + "님이 접속하셨습니다."));
         });
   </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
