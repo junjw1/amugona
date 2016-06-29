@@ -1,201 +1,281 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Amugona Chat</title>
-  <style>
-    body { 
-      font-family: "나눔바른펜"; 
-      height: 100%;
-    }
-    .center {
-      position: absolute; top:50%; left:50%;
-      transform: translate(-50%, -50%);
-    }
+    <title>Amugona Chat</title>
+    <!-- Bootstrap core CSS -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-    .title { text-align: center; font-family: 나눔고딕;}
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <style>
+        body {
+            font-family: "나눔바른펜";
+            height: 100%;
+        }
 
-    .create.page { display: none; height: 100%;}
-    .create.page .name, .detail { display: none; }
-    /* Input & Button Style */
-    input, button {
-      padding: 5px 10px;
-      height: 30px;
-      border: 1px solid #eee;
-      border-radius: 7px;
-    }
-    input {
-      text-align: right;
-      width: 220px;
-    }
-    button { width: 140px; }
-    input:hover {
-      border-color: #ccc;
-    }
-    button:hover {
-      background-color: #ccc;
-    }
-    input:focus, button:focus {
-      border-color: #4272bd;
-      outline: none;
-    }
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-    /* page */
-    .bang {
-      padding: 10px;
-    }
-    .form {
-      height: 90%;
-    }
-    .bot {
-      width: 100%; height: 9%;
-      text-align: center;
-    }
-  </style>
+        .title {
+            text-align: center;
+            font-family: 나눔고딕;
+        }
+
+        .create.page {
+            display: none;
+            height: 100%;
+        }
+
+            .create.page .name.page, .detail, .bangChat, .invite{
+                display: none;
+            }
+        /* Input & Button Style */
+        input, button {
+            padding: 5px 10px;
+            height: 30px;
+            border: 1px solid #eee;
+            border-radius: 7px;
+        }
+
+        input {
+            text-align: right;
+            width: 220px;
+        }
+
+        button {
+            width: 140px;
+        }
+
+        input:hover {
+            border-color: #ccc;
+        }
+
+        button:hover {
+            background-color: #ccc;
+        }
+
+        input:focus, button:focus {
+            border-color: #4272bd;
+            outline: none;
+        }
+
+        /* page */
+        .bang.page {
+            padding: 10px;
+        }
+
+        .form {
+            height: 90%;
+        }
+
+        .bot {
+            width: 100%;
+            height: 9%;
+            text-align: center;
+        }
+        .form-signin{
+            max-width:330px;
+            padding:15px;
+            margin:0 auto;
+        }
+    </style>
+
 </head>
 <body>
-  <div class="pages">
+    <div class="pages">
 
-    <!-- main page -->
-    <div class="main page center">
-      <h1 class="title">Hello World!</h1>
-      <input class="inputEmail" placeholder="email">
-      <button>Create new Bang</button>
+        <!-- main page -->
+        <div class="main page center">
+            <h1 class="title">Hello World!</h1>
+            <input class="inputEmail" placeholder="email">
+            <button>Create new Bang</button>
+        </div>
+
+        <!-- create page -->
+        <div class="create page">
+
+            <!-- bang name -->
+            <div class="bang page">
+                <div class="form">
+                    <h1>Edit your Bang Name</h1>
+                    <p>
+                        <input class="inputbangName" type="text" placeholder="BangName">
+                    </p>
+                    <p>
+                        <input class="inputbangAddr" type="text" placeholder="BangAddress">
+                        <label>.amugona.com</label>
+                    </p>
+                </div>
+                <div class="bot">
+                    <button>Next</button>
+                </div>
+            </div>
+
+            <!-- name & nickname -->
+            <div class="name page">
+                <div class="form">
+                    <h1>Edit your name & nickname</h1>
+                    <p>
+                        your name
+           
+                        <input class="inputfirstName" type="text" placeholder="first name">
+                        <input class="inputlastName" type="text" placeholder="last name">
+                    </p>
+                    <p>
+                        your nickname
+           
+                        <input class="inputnickName" type="text" placeholder="nickname">
+                    </p>
+                </div>
+                <div class="bot">
+                    <button>Next</button>
+                </div>
+            </div>
+
+            <!-- detail -->
+            <div class="detail">
+                <div class="form">
+                    <h1>Profile Detail</h1>
+                    <p>Bang Name</p>
+                    <input class="editBangName" placeholder="bang name">
+                    <p>Bang Address</p>
+                    <input class="editBangAddr" placeholder="bang address">
+                    <p>Name</p>
+                    <input class="editName" placeholder="name">
+                    <p>nickName</p>
+                    <input class="editNickName" placeholder="nickname">
+                    <p>Email</p>
+                    <input class="editEmail" placeholder="email">
+                </div>
+                <div>
+                    <button>Create</button>
+                </div>
+            </div>
+
+
+            <div class="invite">
+                <div class="container">
+                    <form class="form-signin">
+                        <h1 class="form-signin-heading">방에 초대하기</h1>
+
+                        <input type="email" id="inputInviteEmail1" class="form-control" placeholder="Email address1" required autofocus>
+                        <input type="email" id="inputInviteEmail2" class="form-control" placeholder="Email address2" required>
+                        <input type="email" id="inputInviteEmail3" class="form-control" placeholder="Email address3" required>
+
+                        <button class="btn btn-lg btn-primary btn-block" id="btnInvteLater">나중에</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">초대하기</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="bangChat">
+
+            <h1>BANG</h1>
+
+        </div>
+
     </div>
 
-    <!-- create page -->
-    <div class="create page">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        var $window = $(window);
+        var $inputEmail = $('.inputEmail');
+        var $inputBangName = $('.inputBangName');
+        var $inputBangAddr = $('.inputBangAddr');
+        var $inputFirstName = $('.inputFirstName');
+        var $inputLastName = $('.inputLastName');
+        var $inputNickName = $('.inputNickName');
 
-      <!-- bang name -->
-      <div class="bang">
-        <div class="form">
-          <h1>Edit your Bang Name</h1>
-          <p>
-            <input class="inputbangName" type="text" placeholder="BangName">
-          </p>
-          <p>
-            <input class="inputbangAddr" type="text" placeholder="BangAddress">
-            <label>.amugona.com</label>
-          </p>
-        </div>
-        <div class="bot">
-          <button>Next</button>
-        </div>
-      </div>
+        var $btnInviteLater = $('#btnInvteLater');
 
-      <!-- name & nickname -->
-      <div class="name">
-        <div class="form">
-          <h1>Edit your name & nickname</h1>
-          <p>
-            your name
-            <input class="inputfirstName" type="text" placeholder="first name">
-            <input class="inputlastName" type="text" placeholder="last name">
-          </p>
-          <p>
-            your nickname
-            <input class="inputnickName" type="text" placeholder="nickname">
-          </p>
-        </div>
-        <div class="bot">
-          <button>Next</button>
-        </div>
-      </div>
+        var $editEmail = $('.editEmail');
+        var $editBangName = $('.editBangName');
+        var $editBangAddr = $('.editBangAddr');
+        var $editName = $('.editName');
+        var $editNickName = $('.editNickName');
 
-      <!-- detail -->
-      <div class="detail">
-        <div class="form">
-          <h1>Profile Detail</h1>
-          <p>Bang Name</p>
-          <input class="editBangName" placeholder="bang name">
-          <p>Bang Address</p>
-          <input class="editBangAddr" placeholder="bang address">
-          <p>Name</p>
-          <input class="editName" placeholder="name">
-          <p>nickName</p>
-          <input class="editNickName" placeholder="nickname">
-          <p>Email</p>
-          <input class="editEmail" placeholder="email">
-        </div>
-        <div>
-          <button>Create</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script>
-    var $window = $(window);
-    var $inputEmail = $('.inputEmail');
-    var $inputBangName = $('.inputBangName');
-    var $inputBangAddr = $('.inputBangAddr');
-    var $inputFirstName = $('.inputFirstName');
-    var $inputLastName = $('.inputLastName');
-    var $inputNickName = $('.inputNickName');
+        var BangName;
+        var BangAddr;
+        var Name;
+        var NickName;
+        var Email;
 
-    var $editEmail = $('.editEmail');
-    var $editBangName = $('.editBangName');
-    var $editBangAddr = $('.editBangAddr');
-    var $editName = $('.editName');
-    var $editNickName = $('.editNickName');
+        var $mainPage = $('.main.page');
+        var $createPage = $('.create.page');
+        var $namePage = $('.name.page');
+        var $bangPage = $('.bang.page');
+        var $detailPage = $('.detail');
+        var $invitePage = $('.invite');
+        var $bangChat = $('.bangChat');
 
-    var BangName;
-    var BangAddr;
-    var Name;
-    var NickName;
-    var Email;
+        var $currentInput = $inputEmail.focus();
+        var page = 0;
 
-    var $mainPage = $('.main.page');
-    var $createPage = $('.create.page');
-    var $namePage = $('.name');
-    var $bangPage = $('.bang');
-    var $detailPage = $('.detail');
+        var socket = io();
 
-    var $currentInput = $inputEmail.focus();
-    var page = 0;
+        $btnInviteLater.click(function () {
+            $invitePage.fadeOut();
+            $bangChat.show();
+        })
 
-    var socket = io();
+        $window.keydown(function (event) {
+            if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+                $currentInput.focus();
+            }
 
-    $window.keydown(function (event) {
-      if(!(event.ctrlKey || event.metaKey || event.altKey)) {
-        $currentInput.focus();
-      }
+            if (event.which === 13) {
+                switch (page) {
+                    case 0: // email
+                        Email = $inputEmail.val();
 
-      if(event.which === 13) {
-        switch(page) {
-          case 0: // email
-            Email = $inputEmail.val();
+                        $mainPage.fadeOut();
+                        $createPage.show();
+                        break;
+                    case 1: // bang
+                        BangName = $inputBangName.val();
+                        BangAddr = $inputBangAddr.val();
 
-            $mainPage.fadeOut();
-            $createPage.show();
-            break;
-          case 1: // bang
-            BangName = $inputBangName.val();
-            BangAddr = $inputBangAddr.val();
+                        $namePage.show();
+                        $bangPage.fadeOut();
+                        break;
+                    case 2: // name
 
-            $namePage.show();
-            $bangPage.fadeOut();
-            break;
-          case 2: // name
+                        // set input
+                        $editEmail.val(Email);
+                        $editBangName.val(BangName);
+                        $editBangAddr.val(BangAddr + '.amugona.com');
+                        $editName.val($inputFirstName.val() + $inputLastName.val());
+                        $editNickName.val($inputNickName.val());
 
-            // set input
-            $editEmail.val(Email);
-            $editBangName.val(BangName);
-            $editBangAddr.val(BangAddr + '.amugona.com');
-            $editName.val($inputFirstName.val() + $inputLastName.val());
-            $editNickName.val($inputNickName.val());
+                        $detailPage.show();
+                        $namePage.fadeOut();
+                        break;
+                    case 3: // detail
+                        $detailPage.fadeOut();
+                        $invitePage.show();
 
-            $detailPage.show();
-            $namePage.fadeOut();
-            break;
-          case 3: // detail
-            break;
-          default:
-            break;
-        }
-        page++;
-      }
-    });
+                        break;
+                    default:
+                        break;
+                }
+                page++;
+            }
+        });
   </script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
