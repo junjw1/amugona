@@ -1,80 +1,200 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Amugona Bang</title>
+  <title>Amugona Chat</title>
   <style>
-    .center {
-position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    body { 
+      font-family: "나눔바른펜"; 
+      height: 100%;
     }
-    .create { display: none; }
-    .create .name { display: none; }
-    .create .confirm { display: none; }
+    .center {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%, -50%);
+    }
 
-    input {
-      border-radius: 3px;
-      border: 1px solid #eee;
-      width: 220px;
+    .title { text-align: center; font-family: 나눔고딕;}
+
+    .create.page { display: none; height: 100%;}
+    .create.page .name, .detail { display: none; }
+    /* Input & Button Style */
+    input, button {
+      padding: 5px 10px;
       height: 30px;
+      border: 1px solid #eee;
+      border-radius: 7px;
+    }
+    input {
+      text-align: right;
+      width: 220px;
+    }
+    button { width: 140px; }
+    input:hover {
+      border-color: #ccc;
+    }
+    button:hover {
+      background-color: #ccc;
+    }
+    input:focus, button:focus {
+      border-color: #4272bd;
+      outline: none;
+    }
+
+    /* page */
+    .bang {
+      padding: 10px;
+    }
+    .form {
+      height: 90%;
+    }
+    .bot {
+      width: 100%; height: 9%;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-<div class="center">
-  <!-- main page -->
-  <div class="main">
-    <h1>Hello Bang!</h1>
-    <input placeholder="email" />
-    <button id="mainToSetname">create new bang</button>
+  <div class="pages">
+
+    <!-- main page -->
+    <div class="main page center">
+      <h1 class="title">Hello World!</h1>
+      <input class="inputEmail" placeholder="email">
+      <button>Create new Bang</button>
+    </div>
+
+    <!-- create page -->
+    <div class="create page">
+
+      <!-- bang name -->
+      <div class="bang">
+        <div class="form">
+          <h1>Edit your Bang Name</h1>
+          <p>
+            <input class="inputbangName" type="text" placeholder="BangName">
+          </p>
+          <p>
+            <input class="inputbangAddr" type="text" placeholder="BangAddress">
+            <label>.amugona.com</label>
+          </p>
+        </div>
+        <div class="bot">
+          <button>Next</button>
+        </div>
+      </div>
+
+      <!-- name & nickname -->
+      <div class="name">
+        <div class="form">
+          <h1>Edit your name & nickname</h1>
+          <p>
+            your name
+            <input class="inputfirstName" type="text" placeholder="first name">
+            <input class="inputlastName" type="text" placeholder="last name">
+          </p>
+          <p>
+            your nickname
+            <input class="inputnickName" type="text" placeholder="nickname">
+          </p>
+        </div>
+        <div class="bot">
+          <button>Next</button>
+        </div>
+      </div>
+
+      <!-- detail -->
+      <div class="detail">
+        <div class="form">
+          <h1>Profile Detail</h1>
+          <p>Bang Name</p>
+          <input class="editBangName" placeholder="bang name">
+          <p>Bang Address</p>
+          <input class="editBangAddr" placeholder="bang address">
+          <p>Name</p>
+          <input class="editName" placeholder="name">
+          <p>nickName</p>
+          <input class="editNickName" placeholder="nickname">
+          <p>Email</p>
+          <input class="editEmail" placeholder="email">
+        </div>
+        <div>
+          <button>Create</button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- Create Bang -->
-  <div class="create">
-    <!-- input bang -->
-    <div class="bang">
-      <h1>Bang Name</h1>
-      <input placeholder="bang name" />
-      <input placeholder="bang address" />
-      <button id="bangNameToSetUsername">Next</button>
-    </div>
-
-    <!-- input name -->
-    <div class="name">
-      <h1>set name and nickname</h1>
-      <h5>your name</h5>
-      <input placeholder="first name" />
-      <input placeholder="last name" />
-      <h5>your nickname</h5>
-      <input placeholder="nickname" />
-      <button id="UsernameToConfirm">Next</button>
-    </div>
-
-    <!-- confirm page -->
-    <div class="confirm">
-      <h1> last page </h1>
-    </div>
-  </div>
-</div>
-  <script src="/socket.io/socket.io.js/"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script>
-    var $setEmail = $('#mainToSetname');
-    var $setBang = $('#bangNameToSetUsername');
-    var $setName = $('#UsernameToConfirm');
+    var $window = $(window);
+    var $inputEmail = $('.inputEmail');
+    var $inputBangName = $('.inputBangName');
+    var $inputBangAddr = $('.inputBangAddr');
+    var $inputFirstName = $('.inputFirstName');
+    var $inputLastName = $('.inputLastName');
+    var $inputNickName = $('.inputNickName');
 
-    $setEmail.click(function () {
-            $('.main').fadeOut();
-            $('.create').show();
-    });
+    var $editEmail = $('.editEmail');
+    var $editBangName = $('.editBangName');
+    var $editBangAddr = $('.editBangAddr');
+    var $editName = $('.editName');
+    var $editNickName = $('.editNickName');
 
-    $setBang.click(function () {
-            $('.bang').fadeOut();
-            $('.name').show();
-            });
+    var BangName;
+    var BangAddr;
+    var Name;
+    var NickName;
+    var Email;
 
-    $setName.click(function () {
-            $('.name').fadeOut();
-            $('.confirm').show();
+    var $mainPage = $('.main.page');
+    var $createPage = $('.create.page');
+    var $namePage = $('.name');
+    var $bangPage = $('.bang');
+    var $detailPage = $('.detail');
+
+    var $currentInput = $inputEmail.focus();
+    var page = 0;
+
+    var socket = io();
+
+    $window.keydown(function (event) {
+      if(!(event.ctrlKey || event.metaKey || event.altKey)) {
+        $currentInput.focus();
+      }
+
+      if(event.which === 13) {
+        switch(page) {
+          case 0: // email
+            Email = $inputEmail.val();
+
+            $mainPage.fadeOut();
+            $createPage.show();
+            break;
+          case 1: // bang
+            BangName = $inputBangName.val();
+            BangAddr = $inputBangAddr.val();
+
+            $namePage.show();
+            $bangPage.fadeOut();
+            break;
+          case 2: // name
+
+            // set input
+            $editEmail.val(Email);
+            $editBangName.val(BangName);
+            $editBangAddr.val(BangAddr + '.amugona.com');
+            $editName.val($inputFirstName.val() + $inputLastName.val());
+            $editNickName.val($inputNickName.val());
+
+            $detailPage.show();
+            $namePage.fadeOut();
+            break;
+          case 3: // detail
+            break;
+          default:
+            break;
+        }
+        page++;
+      }
     });
   </script>
 </body>
