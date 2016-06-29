@@ -21,19 +21,10 @@
             transform: translate(-50%, -50%);
         }
 
-        .title {
-            text-align: center;
-            font-family: "나눔명조 Regular";
-        }
-
-        .create.page {
+        .createPage, .namePage, .detailPage, .invitePage, .bangChat{
             display: none;
-            height: 100%;
         }
 
-            .create.page .name.page, .detail, .bangChat, .invite{
-                display: none;
-            }
         /* Input & Button Style */
         input, button {
             padding: 5px 10px;
@@ -64,19 +55,10 @@
         }
 
         /* page */
-        .bang.page {
+        .bangPage {
             padding: 10px;
         }
 
-        .form {
-            height: 90%;
-        }
-
-        .bot {
-            width: 100%;
-            height: 9%;
-            text-align: center;
-        }
         .form-signin{
             max-width:330px;
             padding:15px;
@@ -106,75 +88,67 @@
     <div class="pages">
 
         <!-- main page -->
-        <div class="main page center">
-            <h1 class="title">Hello World!</h1>
-            <input class="inputEmail" placeholder="email">
-            <button>Create new Bang</button>
+        <div class="mainPage center">
+            <h1>Hello World!</h1>
+            <form>
+              <input id="inputEmail" placeholder="email">
+              <button id="btnCreate">Create new Bang</button>
+            </form>
         </div>
 
         <!-- create page -->
-        <div class="create page">
+        <div class="createPage">
 
             <!-- bang name -->
-            <div class="bang page">
-                <div class="form">
+            <div class="bangPage">
+                <form class="form-signin">
                     <h1>Edit your Bang Name</h1>
-                    <p>
-                        <input class="inputBangName" type="text" placeholder="BangName">
-                    </p>
-                    <p>
-                        <input class="inputBangAddr" type="text" placeholder="BangAddress">
+                        <input class="form-control" id="inputBangName" type="text" placeholder="BangName">
+                        <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress">
                         <label>.amugona.com</label>
-                    </p>
-                </div>
-                <div class="bot">
-                    <button>Next</button>
-                </div>
+                    <button id="btnNextToName">Next</button>
+                </form>
             </div>
 
             <!-- name & nickname -->
-            <div class="name page">
-                <div class="form">
+            <div class="namePage">
+                <form class="form-signin">
                     <h1>Edit your name & nickname</h1>
                     <p>
                         your name
            
-                        <input class="inputFirstName" type="text" placeholder="first name">
-                        <input class="inputLastName" type="text" placeholder="last name">
+                        <input class="form-control" id="inputFirstName" type="text" placeholder="first name">
+                        <input class="form-control" id="inputLastName" type="text" placeholder="last name">
                     </p>
                     <p>
                         your nickname
            
-                        <input class="inputNickName" type="text" placeholder="nickname">
+                        <input class="form-control" id="inputNickName" type="text" placeholder="nickname">
                     </p>
-                </div>
-                <div class="bot">
-                    <button>Next</button>
-                </div>
+                    <button id="btnNextToDetail">Next</button>
+                </form>
             </div>
 
             <!-- detail -->
-            <div class="detail">
-                <div class="form">
+            <div class="detailPage">
+                <form class="form-signin">
                     <h1>Profile Detail</h1>
                     <p>Bang Name</p>
-                    <input class="editBangName" placeholder="bang name">
+                    <input class="form-control" id="editBangName" placeholder="bang name">
                     <p>Bang Address</p>
-                    <input class="editBangAddr" placeholder="bang address">
+                    <input class="form-control" id="editBangAddr" placeholder="bang address">
                     <p>Name</p>
-                    <input class="editName" placeholder="name">
+                    <input class="form-control" id="editName" placeholder="name">
                     <p>nickName</p>
-                    <input class="editNickName" placeholder="nickname">
+                    <input class="form-control" id="editNickName" placeholder="nickname">
                     <p>Email</p>
-                    <input class="editEmail" placeholder="email">
-                </div>
-                <div>
+                    <input class="form-control" id="editEmail" placeholder="email">
                     <button>Create</button>
-                </div>
+                </form>
             </div>
 
 
-            <div class="invite">
+            <div class="invitePage">
                 <div class="container">
                     <form class="form-signin">
                         <h1 class="form-signin-heading">방에 초대하기</h1>
@@ -215,7 +189,7 @@
 
                 <!-- 채팅창 -->
                 <div class="Chat">
-                  <ul class="messages"></ul>
+                  <ul id="messages"></ul>
                   <input type="text" id="inputMessage" placeholder="type here...">
                 </div>
               </div>
@@ -227,20 +201,20 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
         var $window = $(window);
-        var $inputEmail = $('.inputEmail');
-        var $inputBangName = $('.inputBangName');
-        var $inputBangAddr = $('.inputBangAddr');
-        var $inputFirstName = $('.inputFirstName');
-        var $inputLastName = $('.inputLastName');
-        var $inputNickName = $('.inputNickName');
+        var $inputEmail = $('#inputEmail');
+        var $inputBangName = $('#inputBangName');
+        var $inputBangAddr = $('#inputBangAddr');
+        var $inputFirstName = $('#inputFirstName');
+        var $inputLastName = $('#inputLastName');
+        var $inputNickName = $('#inputNickName');
 
         var $btnInviteLater = $('#btnInvteLater');
 
-        var $editEmail = $('.editEmail');
-        var $editBangName = $('.editBangName');
-        var $editBangAddr = $('.editBangAddr');
-        var $editName = $('.editName');
-        var $editNickName = $('.editNickName');
+        var $editEmail = $('#editEmail');
+        var $editBangName = $('#editBangName');
+        var $editBangAddr = $('#editBangAddr');
+        var $editName = $('#editName');
+        var $editNickName = $('#editNickName');
 
         var BangName;
         var BangAddr;
@@ -248,17 +222,17 @@
         var NickName;
         var Email;
 
-        var $mainPage = $('.main.page');
-        var $createPage = $('.create.page');
-        var $namePage = $('.name.page');
-        var $bangPage = $('.bang.page');
-        var $detailPage = $('.detail');
-        var $invitePage = $('.invite');
+        var $mainPage = $('.mainPage');
+        var $createPage = $('.createPage');
+        var $namePage = $('.namePage');
+        var $bangPage = $('.bangPage');
+        var $detailPage = $('.detailPage');
+        var $invitePage = $('.invitePage');
         var $bangChat = $('.bangChat');
 
         var $currentInput = $inputEmail.focus();
 
-        var $messages = $('.messages');
+        var $messages = $('#messages');
         var $inputMessage = $('#inputMessage');
         var page = 0;
         var addedUser = false;
