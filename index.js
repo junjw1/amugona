@@ -39,4 +39,15 @@ io.on('connection', function (socket) {
 		    numUsers: numUsers
 		});
 	});
+
+	socket.on('disconnect', function () {
+		if (addedUser) {
+			numUsers--;
+
+			socket.broadcast.emit('user left', {
+				username: socket.username,
+				numUsers: numUsers
+			});
+		}
+	});
 });
