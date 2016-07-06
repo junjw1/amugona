@@ -4,8 +4,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = 3000;
 
-var numUsers = 0;
-
 server.listen(port, function () {
 	console.log("server listening ...");
 });
@@ -16,12 +14,23 @@ app.get('/', function (req, res) {
 });
 
 // connect
+var numUsers = 0;
 io.on('connection', function (socket) {
-	socket.on('add user', function (data) {
-		socket.username = data;		// 이름 저장
-		numUsers++;
+	var addedUser = false;
 
-		io.emit('user joined', {
+	// send message
+	socket.on('send message', function (data) {
+		socket.broadcast.emit('send message', data);
+	});
+
+	socket.on('add user', function (username) {
+		if (addedUser) return;
+
+		socket.username = username;
+		numUsers++;
+		addedUser = true;
+
+		socket.broadcast.emit('user joined', {
 			username: socket.username,
 			numUsers: numUsers
 		});
