@@ -90,9 +90,9 @@
         <!-- main page -->
         <div class="mainPage center">
             <h1>Hello World!</h1>
-            <form>
+            <form id="mainPage">
               <input id="inputEmail" placeholder="email">
-              <button id="btnCreate">Create new Bang</button>
+              <button>Create new Bang</button>
             </form>
         </div>
 
@@ -101,68 +101,42 @@
 
             <!-- bang name -->
             <div class="bangPage">
-                <form class="form-signin">
+                <form id="bangPage" class="form-signin">
                     <h1>Edit your Bang Name</h1>
                         <input class="form-control" id="inputBangName" type="text" placeholder="BangName">
                         <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress">
                         <label>.amugona.com</label>
-                    <button id="btnNextToName">Next</button>
+                    <button>Next</button>
                 </form>
             </div>
 
             <!-- name & nickname -->
             <div class="namePage">
-                <form class="form-signin">
-                    <h1>Edit your name & nickname</h1>
+                <form id="namePage" class="form-signin">
+                    <h1>Edit your name</h1>
                     <p>
                         your name
            
-                        <input class="form-control" id="inputFirstName" type="text" placeholder="first name">
-                        <input class="form-control" id="inputLastName" type="text" placeholder="last name">
+                        <input class="form-control" id="inputUsername" type="text" placeholder="name">
                     </p>
-                    <p>
-                        your nickname
-           
-                        <input class="form-control" id="inputNickName" type="text" placeholder="nickname">
-                    </p>
-                    <button id="btnNextToDetail">Next</button>
+                    <button>Next</button>
                 </form>
             </div>
 
             <!-- detail -->
             <div class="detailPage">
-                <form class="form-signin">
+                <form id="detailPage" class="form-signin">
                     <h1>Profile Detail</h1>
                     <p>Bang Name</p>
                     <input class="form-control" id="editBangName" placeholder="bang name">
                     <p>Bang Address</p>
                     <input class="form-control" id="editBangAddr" placeholder="bang address">
                     <p>Name</p>
-                    <input class="form-control" id="editName" placeholder="name">
-                    <p>nickName</p>
-                    <input class="form-control" id="editNickName" placeholder="nickname">
+                    <input class="form-control" id="editUsername" placeholder="name">
                     <p>Email</p>
                     <input class="form-control" id="editEmail" placeholder="email">
                     <button>Create</button>
                 </form>
-            </div>
-
-
-            <div class="invitePage">
-                <div class="container">
-                    <form class="form-signin">
-                        <h1 class="form-signin-heading">방에 초대하기</h1>
-
-                        <input type="email" id="inputInviteEmail1" class="form-control" placeholder="Email address1" required autofocus>
-                        <input type="email" id="inputInviteEmail2" class="form-control" placeholder="Email address2" required>
-                        <input type="email" id="inputInviteEmail3" class="form-control" placeholder="Email address3" required>
-
-                        <button class="btn btn-lg btn-primary btn-block" id="btnInvteLater">나중에</button>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">초대하기</button>
-
-                    </form>
-
-                </div>
             </div>
         </div>
 
@@ -188,9 +162,11 @@
                 </div>
 
                 <!-- 채팅창 -->
-                <div class="Chat">
-                  <ul id="messages"></ul>
-                  <input type="text" id="inputMessage" placeholder="type here...">
+                <div class="chatPage">
+                  <form id="chatPage">
+                    <ul id="messages"></ul>
+                    <input type="text" id="inputMessage" placeholder="type here...">
+                  </form>
                 </div>
               </div>
             </div>
@@ -201,108 +177,127 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
         var $window = $(window);
+
+        /* input */
         var $inputEmail = $('#inputEmail');
         var $inputBangName = $('#inputBangName');
         var $inputBangAddr = $('#inputBangAddr');
-        var $inputFirstName = $('#inputFirstName');
-        var $inputLastName = $('#inputLastName');
-        var $inputNickName = $('#inputNickName');
+        var $inputUsername = $('#inputUsername');
+        var $inputMessage = $('#inputMessage');   // input message
 
-        var $btnInviteLater = $('#btnInvteLater');
-
+        /* edit */
         var $editEmail = $('#editEmail');
         var $editBangName = $('#editBangName');
         var $editBangAddr = $('#editBangAddr');
-        var $editName = $('#editName');
-        var $editNickName = $('#editNickName');
+        var $editUsername = $('#editUsername');
 
+        /* variable init */
         var BangName;
         var BangAddr;
-        var Name;
-        var NickName;
+        var Username;
         var Email;
 
+        /* page */
         var $mainPage = $('.mainPage');
         var $createPage = $('.createPage');
         var $namePage = $('.namePage');
         var $bangPage = $('.bangPage');
         var $detailPage = $('.detailPage');
-        var $invitePage = $('.invitePage');
-        var $bangChat = $('.bangChat');
+        var $bangChat = $('.bangChat'); // message page
 
+        /* message area */
+        var $messages = $('#messages');
+
+        /* focus input */
         var $currentInput = $inputEmail.focus();
 
-        var $messages = $('#messages');
-        var $inputMessage = $('#inputMessage');
-        var page = 0;
-        var addedUser = false;
-
+        /* client socket */
         var socket = io();
 
-        function setUsername() {
-          if(addedUser) return;
-          else {
-            socket.emit('add user', NickName);
-          }
+        /* fucntion */
+        function cleanInput() {
+          $inputMessage.val('');
         }
 
-        $btnInviteLater.click(function () {   // go to bangChat
-            $invitePage.fadeOut();
-            $bangChat.show();
-            setUsername();
-        })
+        // get message and emit 'send message'
+        function sendMessage() {
+          var message = $inputMessage.val();
+          cleanInput();
 
-        $window.keydown(function (event) {
-            if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-                $currentInput.focus();
-            }
+          addChatMessage({username: Username, message: message});
+          socket.emit('send message', {username: Username, message: message});
+        }
 
-            if (event.which === 13) {
-                if(addedUser) {   // 접속
+        // create li element
+        function addChatMessage(data) {
+          var $usernameDiv = $('<span>').text("[" + data.username + "] ");
+          var $messageDiv = $('<span>').text(data.message);
+          var $el = $('<li>').append($usernameDiv, $messageDiv);
+          sendMessageElement($el);
+        }
 
-                } else {    // 비 접속
-                  switch (page) {
-                      case 0: // email
-                          Email = $inputEmail.val();
+        // add messsage
+        function sendMessageElement(el) {
+          $messages.append(el);
+        }
 
-                          $mainPage.fadeOut();
-                          $createPage.show();
-                          break;
-                      case 1: // bang
-                          BangName = $inputBangName.val();
-                          BangAddr = $inputBangAddr.val();
+        /* form submit */
+        $('#mainPage').submit(function () {
+          Email = $inputEmail.val();
 
-                          $namePage.show();
-                          $bangPage.fadeOut();
-                          break;
-                      case 2: // name
-                          NickName = $inputNickName.val();
+          $mainPage.fadeOut();
+          $createPage.show();
+          $currentInput = $inputBangName.focus();
+          return false;
+        });
 
-                          // set input
-                          $editEmail.val(Email);
-                          $editBangName.val(BangName);
-                          $editBangAddr.val(BangAddr + '.amugona.com');
-                          $editName.val($inputFirstName.val() + $inputLastName.val());
-                          $editNickName.val($inputNickName.val());
+        $('#bangPage').submit(function () {
+          BangName = $inputBangName.val();
+          BangAddr = $inputBangAddr.val();
 
-                          $detailPage.show();
-                          $namePage.fadeOut();
-                          break;
-                      case 3: // detail
-                          $detailPage.fadeOut();
-                          $invitePage.show();
-                          break;
-                      default:
-                          break;
-                  }
-                  page++;
-              }
-            }
+          $namePage.show();
+          $bangPage.fadeOut();
+          $currentInput = $inputUsername.focus();
+          return false;
+        });
+
+        $('#namePage').submit(function () {
+          Username = $inputUsername.val();
+
+          // set input
+          $editEmail.val(Email);
+          $editBangName.val(BangName);
+          $editBangAddr.val(BangAddr);
+          $editUsername.val(Username);
+
+          $detailPage.show();
+          $namePage.fadeOut();
+          $currentInput = $('button').focus();
+          return false;
+        });
+
+        $('#detailPage').submit(function () {
+          $detailPage.fadeOut();
+          $bangChat.show();
+
+          socket.emit('add user', Username);
+          $currentInput = $inputMessage.focus();
+          return false;
+        });
+
+        $('#chatPage').submit(function () {
+          sendMessage();
+
+          return false;
         });
 
         // socket event
-        socket.on('user joined', function(data) {
+        socket.on('user joined', function (data) {
           $messages.append($('<li>').text(data.username + "님이 접속하셨습니다."));
+        });
+
+        socket.on('send message', function (data) {
+          addChatMessage(data);
         });
   </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
