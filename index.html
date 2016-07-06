@@ -12,6 +12,9 @@
         body {
             font-family: "나눔바른펜";
             height: 100%;
+
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
         .center {
@@ -59,13 +62,13 @@
             padding: 10px;
         }
 
-        .form-signin {
+        .form-signin {  /* form center */
             max-width: 330px;
             padding: 15px;
             margin: 0 auto;
         }
 
-        /* 채팅창 스타일시트 */
+        /* bang Chat */
         .bangChat {
             padding: 5px 10px;
         }
@@ -75,6 +78,22 @@
             height: 900px;
             padding: 5px 10px;
         }
+
+        .header {
+            height: 15%;
+            margin-bottom: .5%;
+        }
+        .content {
+            height: 80%;
+        }
+
+        /* messages */
+        .log {
+            color: rgb(236, 121, 102);
+            text-align: center;
+        }
+
+        #messages { list-style: none; }
 
         #inputMessage {
             position: fixed;
@@ -154,8 +173,8 @@
                 </div>
                 <div class="col-md-10">
                     <!-- 칸막이 정보 -->
-                    <div class="head">
-                        <h1 class="header">칸막이이름<br>
+                    <div class="header">
+                        <h1>칸막이이름<br>
                             <small>멤버수</small>
                             <small>칸막이설명</small>
                         </h1>
@@ -163,7 +182,7 @@
                     </div>
 
                     <!-- 채팅창 -->
-                    <div class="chatPage">
+                    <div class="content">
                         <form id="chatPage">
                             <ul id="messages"></ul>
                             <input type="text" id="inputMessage" placeholder="type here...">
@@ -241,6 +260,7 @@
         // add messsage
         function addMessageElement(el) {
             $messages.append(el);
+            $(document).scrollTop($(document).height());
         }
 
         function log(data) {
@@ -250,7 +270,7 @@
 
         //환영합니다. 현재 n명 접속중입니다.(첫 접속시)
         //(타사용자 접속시)000님이 접속하셨습니다.
-        function addParticipantMessange(data, msg) {
+        function addParticipantMessage(data, msg) {
             var str = msg + data.numUsers + "명 접속중입니다.";
             log(str);
         }
@@ -314,9 +334,15 @@
         socket.on('send message', function (data) {
             addChatMessage(data);
         });
+
         socket.on('welcome', function (data) {
-            var msg = Username + "님 환영합니다! ";
-            addParticipantMessange(data, msg);
+            var msg = Username + "님 환영합니다!";
+            addParticipantMessage(data, msg);
+        });
+
+        socket.on('user left', function (data) {
+            var msg = data.username + "님이 나가셨습니다.";
+            addParticipantMessage(data, msg);
         });
 
     </script>
