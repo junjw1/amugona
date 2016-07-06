@@ -21,7 +21,7 @@
             transform: translate(-50%, -50%);
         }
 
-        .createPage, .namePage, .detailPage, .invitePage, .bangChat{
+        .createPage, .namePage, .detailPage, .invitePage, .bangChat {
             display: none;
         }
 
@@ -59,27 +59,29 @@
             padding: 10px;
         }
 
-        .form-signin{
-            max-width:330px;
-            padding:15px;
-            margin:0 auto;
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
         }
 
         /* 채팅창 스타일시트 */
         .bangChat {
-          padding: 5px 10px;
+            padding: 5px 10px;
         }
+
         .nav {
-          background-color: #eee;
-          height: 900px;
-          padding: 5px 10px;
+            background-color: #eee;
+            height: 900px;
+            padding: 5px 10px;
         }
+
         #inputMessage {
-          position: fixed;
-          margin-right: 10px;
-          width: 83%;
-          bottom: 0;
-          right: 0;
+            position: fixed;
+            margin-right: 10px;
+            width: 83%;
+            bottom: 0;
+            right: 0;
         }
     </style>
 
@@ -91,8 +93,8 @@
         <div class="mainPage center">
             <h1>Hello World!</h1>
             <form id="mainPage">
-              <input id="inputEmail" placeholder="email">
-              <button>Create new Bang</button>
+                <input id="inputEmail" placeholder="email">
+                <button>Create new Bang</button>
             </form>
         </div>
 
@@ -103,9 +105,9 @@
             <div class="bangPage">
                 <form id="bangPage" class="form-signin">
                     <h1>Edit your Bang Name</h1>
-                        <input class="form-control" id="inputBangName" type="text" placeholder="BangName">
-                        <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress">
-                        <label>.amugona.com</label>
+                    <input class="form-control" id="inputBangName" type="text" placeholder="BangName">
+                    <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress">
+                    <label>.amugona.com</label>
                     <button>Next</button>
                 </form>
             </div>
@@ -143,32 +145,31 @@
         <!-- Chat Room -->
         <div class="bangChat">
             <div class="row">
-              <div class="col-md-2">
-                <ul class="nav">
-                  <li>방이름</li>
-                  <li>칸막이</li>
-                  <li>유저</li>
-                </ul>
-              </div>
-              <div class="col-md-10">
-                <!-- 칸막이 정보 -->
-                <div class="head">
-                  <h1 class="header">
-                    칸막이이름<br>
-                    <small>멤버수</small>
-                    <small>칸막이설명</small>
-                  </h1>
-                  <hr>
+                <div class="col-md-2">
+                    <ul class="nav">
+                        <li>방이름</li>
+                        <li>칸막이</li>
+                        <li>유저</li>
+                    </ul>
                 </div>
+                <div class="col-md-10">
+                    <!-- 칸막이 정보 -->
+                    <div class="head">
+                        <h1 class="header">칸막이이름<br>
+                            <small>멤버수</small>
+                            <small>칸막이설명</small>
+                        </h1>
+                        <hr>
+                    </div>
 
-                <!-- 채팅창 -->
-                <div class="chatPage">
-                  <form id="chatPage">
-                    <ul id="messages"></ul>
-                    <input type="text" id="inputMessage" placeholder="type here...">
-                  </form>
+                    <!-- 채팅창 -->
+                    <div class="chatPage">
+                        <form id="chatPage">
+                            <ul id="messages"></ul>
+                            <input type="text" id="inputMessage" placeholder="type here...">
+                        </form>
+                    </div>
                 </div>
-              </div>
             </div>
         </div>
     </div>
@@ -215,91 +216,110 @@
         var socket = io();
 
         /* fucntion */
+
         function cleanInput() {
-          $inputMessage.val('');
+            $inputMessage.val('');
         }
 
         // get message and emit 'send message'
         function sendMessage() {
-          var message = $inputMessage.val();
-          cleanInput();
+            var message = $inputMessage.val();
+            cleanInput();
 
-          addChatMessage({username: Username, message: message});
-          socket.emit('send message', {username: Username, message: message});
+            addChatMessage({ username: Username, message: message });
+            socket.emit('send message', { username: Username, message: message });
         }
 
         // create li element
         function addChatMessage(data) {
-          var $usernameDiv = $('<span>').text("[" + data.username + "] ");
-          var $messageDiv = $('<span>').text(data.message);
-          var $el = $('<li>').append($usernameDiv, $messageDiv);
-          sendMessageElement($el);
+            var $usernameDiv = $('<span>').text("[" + data.username + "] ");
+            var $messageDiv = $('<span>').text(data.message);
+            var $el = $('<li>').append($usernameDiv, $messageDiv);
+            addMessageElement($el);
         }
 
         // add messsage
-        function sendMessageElement(el) {
-          $messages.append(el);
+        function addMessageElement(el) {
+            $messages.append(el);
+        }
+
+        function log(data) {
+            var el = $('<li>').addClass('log').text(data);
+            addMessageElement(el);
+        }
+
+        //환영합니다. 현재 n명 접속중입니다.(첫 접속시)
+        //(타사용자 접속시)000님이 접속하셨습니다.
+        function addParticipantMessange(data, msg) {
+            var str = msg + data.numUsers + "명 접속중입니다.";
+            log(str);
         }
 
         /* form submit */
         $('#mainPage').submit(function () {
-          Email = $inputEmail.val();
+            Email = $inputEmail.val();
 
-          $mainPage.fadeOut();
-          $createPage.show();
-          $currentInput = $inputBangName.focus();
-          return false;
+            $mainPage.fadeOut();
+            $createPage.show();
+            $currentInput = $inputBangName.focus();
+            return false;
         });
 
         $('#bangPage').submit(function () {
-          BangName = $inputBangName.val();
-          BangAddr = $inputBangAddr.val();
+            BangName = $inputBangName.val();
+            BangAddr = $inputBangAddr.val();
 
-          $namePage.show();
-          $bangPage.fadeOut();
-          $currentInput = $inputUsername.focus();
-          return false;
+            $namePage.show();
+            $bangPage.fadeOut();
+            $currentInput = $inputUsername.focus();
+            return false;
         });
 
         $('#namePage').submit(function () {
-          Username = $inputUsername.val();
+            Username = $inputUsername.val();
 
-          // set input
-          $editEmail.val(Email);
-          $editBangName.val(BangName);
-          $editBangAddr.val(BangAddr);
-          $editUsername.val(Username);
+            // set input
+            $editEmail.val(Email);
+            $editBangName.val(BangName);
+            $editBangAddr.val(BangAddr);
+            $editUsername.val(Username);
 
-          $detailPage.show();
-          $namePage.fadeOut();
-          $currentInput = $('button').focus();
-          return false;
+            $detailPage.show();
+            $namePage.fadeOut();
+            $currentInput = $('button').focus();
+            return false;
         });
 
         $('#detailPage').submit(function () {
-          $detailPage.fadeOut();
-          $bangChat.show();
+            $detailPage.fadeOut();
+            $bangChat.show();
 
-          socket.emit('add user', Username);
-          $currentInput = $inputMessage.focus();
-          return false;
+            socket.emit('add user', Username);
+            $currentInput = $inputMessage.focus();
+            return false;
         });
 
         $('#chatPage').submit(function () {
-          sendMessage();
+            sendMessage();
 
-          return false;
+            return false;
         });
 
         // socket event
         socket.on('user joined', function (data) {
-          $messages.append($('<li>').text(data.username + "님이 접속하셨습니다."));
+            var msg = data.username + "님이 접속하셨습니다.";
+            log(msg);
         });
 
         socket.on('send message', function (data) {
-          addChatMessage(data);
+            addChatMessage(data);
         });
-  </script>
+        socket.on('welcome', function (data) {
+            var msg = Username + "님 환영합니다! ";
+            addParticipantMessange(data, msg);
+        });
+
+    </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->

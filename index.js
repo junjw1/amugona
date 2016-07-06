@@ -34,5 +34,9 @@ io.on('connection', function (socket) {
 			username: socket.username,
 			numUsers: numUsers
 		});
+
+		socket.emit('welcome', {
+		    numUsers: numUsers
+		});
 	});
 });
