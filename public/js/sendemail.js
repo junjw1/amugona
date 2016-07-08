@@ -2,7 +2,7 @@ function sendemailfunc(useremail) {
     var email = require("./node_modules/emailjs/email");
     var server = email.server.connect({
         user: "amelia670"
-        , password: "dnld4whrkr"
+        , password: "password"
         , host: "smtp.naver.com"
         , ssl: true
     });

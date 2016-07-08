@@ -1,5 +1,5 @@
 var express = require('express');
-var sendemail=require('./sendemail');
+var sendemail=require('./public/js/sendemail');
 
 var app = express();
 var server = require('http').createServer(app);
@@ -9,9 +9,8 @@ server.listen(port, function () {
     console.log("server listening ...");
 });
 // routing
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
+app.use(express.static(__dirname + '/public'));
+
 // connect
 var numUsers = 0;
 io.on('connection', function (socket) {
