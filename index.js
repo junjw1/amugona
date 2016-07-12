@@ -1,13 +1,19 @@
+var sendemail = require('./public/js/sendemail');
 var express = require('express');
+<<<<<<< HEAD
 var sendemail=require('./public/js/sendemail');
 
+=======
+>>>>>>> 32200673b8d3272a36de2eb1f7da96fc8347f83b
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+var io = require('./node_modules/socket.io')(server);
 var port = 3000;
+
 server.listen(port, function () {
     console.log("server listening ...");
 });
+
 // routing
 app.use(express.static(__dirname + '/public'));
 
@@ -15,12 +21,18 @@ app.use(express.static(__dirname + '/public'));
 var numUsers = 0;
 io.on('connection', function (socket) {
     var addedUser = false;
+
     //boroad.emit 본인 빼고 다른 클라에게 이벤트를 쏜다
     //챗 메시지 전송
     //(챗-3)
     socket.on('send message', function (data) {
         socket.broadcast.emit('send message', data);
     });
+
+    socket.on('send message2', function (data) {
+        socket.broadcast.emit('send message2', data);
+    });
+
     socket.on('add user', function (username) {
         if (addedUser) return;
         socket.username = username;
@@ -48,7 +60,5 @@ io.on('connection', function (socket) {
         //이메일을 전송합시다. 이메일전송하는.js(sendemail.js)내 function 호출
         //sendemail.sendemailfunc(email); //is not a funtion !!
         sendemail.email(email); //is not a funtion !!
-        
-
     });
 });
