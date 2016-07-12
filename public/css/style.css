@@ -1,0 +1,95 @@
+body {
+    font-family: "나눔바른펜";
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#messages2 { display: none; }
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.createPage, .namePage, .detailPage, .invitePage, .bangChat {
+    display: none;
+}
+
+/* Input & Button Style */
+input, button {
+    padding: 5px 10px;
+    height: 30px;
+    border: 1px solid #eee;
+    border-radius: 7px;
+}
+
+input {
+    width: 220px;
+}
+
+button {
+    width: 140px;
+}
+
+input:hover {
+    border-color: #ccc;
+}
+
+button:hover {
+    background-color: #ccc;
+}
+
+input:focus, button:focus {
+    border-color: #4272bd;
+    outline: none;
+}
+
+/* page */
+.bangPage {
+    padding: 10px;
+}
+
+.form-signin {  /* form center */
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+/* bang Chat */
+.bangChat {
+    padding: 5px 10px;
+}
+
+.nav {
+    background-color: #eee;
+    height: 900px;
+    padding: 5px 10px;
+}
+
+.header {
+    height: 15%;
+    margin-bottom: .5%;
+}
+.content {
+    height: 80%;
+}
+
+/* messages */
+.log {
+    color: rgb(236, 121, 102);
+    text-align: center;
+}
+
+#messages { list-style: none; }
+
+#inputMessage {
+    position: fixed;
+    margin-right: 10px;
+    width: 83%;
+    bottom: 0;
+    right: 0;
+}

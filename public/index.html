@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amugona Chat</title>
+    <!-- Bootstrap core CSS -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="pages">
+
+        <!-- main page -->
+        <div class="mainPage center">
+            <h1>Hello World!</h1>
+            <form id="mainPage">
+                <input id="inputEmail" placeholder="email">
+                <button>Create new Bang</button>
+            </form>
+        </div>
+
+        <!-- create page -->
+        <div class="createPage">
+
+            <!-- bang name -->
+            <div class="bangPage">
+                <form id="bangPage" class="form-signin">
+                    <h1>Edit your Bang Name</h1>
+                    <input class="form-control" id="inputBangName" type="text" placeholder="BangName">
+                    <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress">
+                    <label>.amugona.com</label>
+                    <button>Next</button>
+                </form>
+            </div>
+
+            <!-- name & nickname -->
+            <div class="namePage">
+                <form id="namePage" class="form-signin">
+                    <h1>Edit your name</h1>
+                    <p>
+                        your name
+           
+                        <input class="form-control" id="inputUsername" type="text" placeholder="name">
+                    </p>
+                    <button>Next</button>
+                </form>
+            </div>
+
+            <!-- detail -->
+            <div class="detailPage">
+                <form id="detailPage" class="form-signin">
+                    <h1>Profile Detail</h1>
+                    <p>Bang Name</p>
+                    <input class="form-control" id="editBangName" placeholder="bang name">
+                    <p>Bang Address</p>
+                    <input class="form-control" id="editBangAddr" placeholder="bang address">
+                    <p>Name</p>
+                    <input class="form-control" id="editUsername" placeholder="name">
+                    <p>Email</p>
+                    <input class="form-control" id="editEmail" placeholder="email">
+                    <button>Create</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Room -->
+        <div class="bangChat">
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav">
+                        <li>방이름</li>
+                        <li>
+                            칸막이
+                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#addKanmagi"></span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="addKanmagi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Create a kanmagi</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <label class="control-label">Kanmagi Name</label>
+                                    <input type="text" class="form-control" id="inputKanmagiName">
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" id="createKanmagi">Create kanmagi</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <ul class="kanmagi">
+                                <li>
+                                    <a class="General">General</a>
+                                </li>
+                                <li>
+                                    <a class="Random">Random</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>유저</li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <!-- 칸막이 정보 -->
+                    <div class="header">
+                        <h1>칸막이이름<br>
+                            <small>멤버수</small>
+                            <small>칸막이설명</small>
+                        </h1>
+                        <hr>
+                    </div>
+
+                    <!-- 채팅창 -->
+                    <div class="content">
+                        <form id="chatPage">
+                            <div class="chatArea">
+                                <ul id="messages"></ul> <!-- General -->
+                                <ul id="messages2"></ul>    <!-- random -->
+                            </div>
+                            <input type="text" id="inputMessage" placeholder="type here...">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
