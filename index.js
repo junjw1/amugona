@@ -1,10 +1,5 @@
 var sendemail = require('./public/js/sendemail');
 var express = require('express');
-<<<<<<< HEAD
-var sendemail=require('./public/js/sendemail');
-
-=======
->>>>>>> 32200673b8d3272a36de2eb1f7da96fc8347f83b
 var app = express();
 var server = require('http').createServer(app);
 var io = require('./node_modules/socket.io')(server);

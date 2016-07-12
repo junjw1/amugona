@@ -1,13 +1,8 @@
 function sendemailfunc(useremail) {
     var email = require("../../node_modules/emailjs/email");
     var server = email.server.connect({
-<<<<<<< HEAD:public/js/sendemail.js
-        user: "amelia670"
-        , password: "password"
-=======
         user: "user_email_input"
         , password: "your password"
->>>>>>> 32200673b8d3272a36de2eb1f7da96fc8347f83b:public/js/sendemail.js
         , host: "smtp.naver.com"
         , ssl: true
     });
