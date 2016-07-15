@@ -46,10 +46,10 @@ function cleanInput() {
 function sendMessage() {
     var message = $inputMessage.val();
     cleanInput();
-    
+
     //(챗-1)본인이 입력한 챗 메시지를 본인 화면에 출력
     addChatMessage({ username: Username, message: message });
-    
+
     //(챗-2)서버에게 이벤트를 쏜다
     socket.emit('send message', { username: Username, message: message });
 }
@@ -58,10 +58,10 @@ function sendMessage() {
 function sendMessage2() {
     var message = $inputMessage.val();
     cleanInput();
-    
+
     //(챗-1)본인이 입력한 챗 메시지를 본인 화면에 출력
     addChatMessage2({ username: Username, message: message });
-    
+
     //(챗-2)서버에게 이벤트를 쏜다
     socket.emit('send message2', { username: Username, message: message });
 }
@@ -178,10 +178,10 @@ $('#detailPage').submit(function () {
 
     //서버에 이름을 보낸다. emit으로 이벤트 발생 on으로 그 이벤트에 대한 처리
     socket.emit('add user', Username);
-    
+
     //서버에 이메일 보낸다
     socket.emit('send email', Email);
-    
+
     $currentInput = $inputMessage.focus();
     return false;
 });
