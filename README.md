@@ -4,6 +4,9 @@
 # Contributors
 - [MoonG25](https://github.com/MoonG25)
 
+# Index
+- [포스트모텀](#포스트모텀)
+
 ## 팀 만들고 채팅시작하기
 1. 이메일 입력
 2. 팀이름 입력
@@ -53,4 +56,3 @@ View - React
 ### React
 사용자가 작성하는 React 컴포넌트 클래스는 대문자로만 작성해야 하며, 
 소문자로 시작하는 컴포넌트 이름은 모두 HTML 엘리먼트로 간주됩니다.
-
