@@ -221,3 +221,4 @@ socket.on('user left', function (data) {
     var msg = data.username + "님이 나가셨습니다.";
     addParticipantMessage(data, msg);
 });
+
