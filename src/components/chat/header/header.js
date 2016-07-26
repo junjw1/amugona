@@ -5,7 +5,7 @@ import Desc from './desc';
 class header extends Component {
   render() {
     return (
-      <div>
+      <div className="header">
         <Teamname />
         <Desc />
       </div>

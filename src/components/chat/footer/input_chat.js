@@ -5,7 +5,7 @@ class input_chat extends Component {
   render() {
     return (
       <div className="input_chat">
-        <h1>input_chat</h1>
+        <input className="inputMessage" />
       </div>
     );
   }
