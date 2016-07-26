@@ -10,7 +10,7 @@ class confirm extends Component {
         <input type="email" placeholder="email" /><br/>
         <input type="text" placeholder="team name" /><br/>
         <input type="text" placeholder="team address" /><br/> .amugona.com<br/>
-        <Link to="/chat/chat"><button>Go team chat page</button></Link>
+        <Link to="/chat"><button>Go team chat page</button></Link>
       </div>
     );
   }

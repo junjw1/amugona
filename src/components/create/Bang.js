@@ -3,48 +3,48 @@ import React, { Component } from 'react';
 class Bang extends Component {
   render() {
     return(
-      <div class="bangChat">
-        <div class="row">
-          <div class="col-md-2">
-            <ul class="nav">
+      <div className="bangChat">
+        <div className="row">
+          <div className="col-md-2">
+            <ul className="nav">
               <li>방이름</li>
               <li>
                 칸막이
-                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#addKanmagi"></span>
+                <span className="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#addKanmagi"></span>
 
-                <div class="modal fade" id="addKanmagi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create a kanmagi</h4>
+                <div className="modal fade" id="addKanmagi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <button className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 className="modal-title" id="myModalLabel">Create a kanmagi</h4>
                       </div>
-                      <div class="modal-body">
-                        <label class="control-label">Kanmagi Name</label>
-                        <input class="form-control" id="inputKanmagiName"/>
+                      <div className="modal-body">
+                        <label className="control-label">Kanmagi Name</label>
+                        <input className="form-control" id="inputKanmagiName"/>
                       </div>
-                      <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="createKanmagi">Create kanmagi</button>
+                      <div className="modal-footer">
+                        <button className="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button className="btn btn-primary" id="createKanmagi">Create kanmagi</button>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <ul class="kanmagi">
+                <ul className="kanmagi">
                   <li>
-                    <a class="General">General</a>
+                    <a className="General">General</a>
                   </li>
                   <li>
-                    <a class="Random">Random</a>
+                    <a className="Random">Random</a>
                   </li>
                 </ul>
               </li>
               <li>유저</li>
             </ul>
           </div>
-          <div class="col-md-10">
-            <div class="header">
+          <div className="col-md-10">
+            <div className="header">
               <h1>칸막이이름<br/>
                 <small>멤버수</small>
                 <small>칸막이설명</small>
@@ -52,9 +52,9 @@ class Bang extends Component {
               <hr/>
             </div>
 
-            <div class="content">
+            <div className="content">
               <form id="chatPage">
-                <div class="chatArea">
+                <div className="chatArea">
                   <ul id="messages"></ul>
                   <ul id="messages2"></ul>
                 </div>

@@ -9,7 +9,7 @@ class teamname extends Component {
         <h1 className="title">Setting your Bang</h1>
         <input type="text" id="inputTeamName" placeholder="team name" /><br/>
         <input type="text" id="inputTeamAddr" placeholder="team address" /><br/> .amugona.com<br/>
-        <Link to="/create/confirm"><button>Next</button></Link>
+        <Link to="/create/name"><button>Next</button></Link>
       </div>
     );
   }

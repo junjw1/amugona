@@ -8,7 +8,7 @@ class main extends React.Component {
       <div className="center">
         <h1 className="title">Hello React!</h1>
         <input type="email" id="inputEmail" placeholder="email" />
-        <Link to="/create/create"><button className="ghost-button">Create Team</button></Link>
+        <Link to="/create"><button className="ghost-button">Create Team</button></Link>
       </div>
     );
   }

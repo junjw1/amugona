@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import input_chat from './input_chat';
-
+import Input_chat from './input_chat';
 
 class footer extends Component {
   render() {
     return (
       <div className="footer">
-      <input_chat/>
+        <Input_chat/>
       </div>
     );
   }

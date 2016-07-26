@@ -5,11 +5,11 @@ import { Link } from 'react-router';
 class name extends Component {
   render() {
     return (
-      <div className="name">
+      <div className="center">
 
         <h1 className="title">Whats your name?</h1>
         <input type="text" id="inputName" placeholder="name" />
-        <Link to="/create/teamname"><button>Next</button></Link>
+        <Link to="/create/confirm"><button>Next</button></Link>
 
       </div>
     );
