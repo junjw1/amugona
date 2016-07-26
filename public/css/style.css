@@ -15,9 +15,9 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.createPage, .namePage, .detailPage, .invitePage, .bangChat {
+/*.createPage, .namePage, .detailPage, .invitePage, .bangChat {
     display: none;
-}
+}*/
 
 /* Input & Button Style */
 input, button {

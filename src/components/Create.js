@@ -4,39 +4,39 @@ class Create extends Component {
   render() {
     return(
       /* Create Page */
-      <div class="createPage">
-        <div class="bangPage">
-          <form id="bangPage" class="form-signin">
+      <div className="createPage">
+        <div className="bangPage">
+          <form id="bangPage" className="form-signin">
             <h1>Edit your Bang Name</h1>
-            <input class="form-control" id="inputBangName" type="text" placeholder="BangName"/>
-            <input class="form-control" id="inputBangAddr" type="text" placeholder="BangAddress" placeHolder="BangAddress"/>
+            <input className="form-control" id="inputBangName" type="text" placeholder="BangName"/>
+            <input className="form-control" id="inputBangAddr" type="text" placeholder="BangAddress" placeHolder="BangAddress"/>
             <label>.amugona.com</label>
             <button>Next</button>
           </form>
         </div>
 
-        <div class="namePage">
-          <form id="namePage" class="form-signin">
+        <div className="namePage">
+          <form id="namePage" className="form-signin">
             <h1>Edit your name</h1>
             <p>
                 your name
-                <input class="form-control" id="inputUsername" type="text" placeholder="name"/>
+                <input className="form-control" id="inputUsername" type="text" placeholder="name"/>
             </p>
             <button>Next</button>
           </form>
         </div>
 
-        <div class="detailPage">
-          <form id="detailPage" class="form-signin">
+        <div className="detailPage">
+          <form id="detailPage" className="form-signin">
             <h1>Profile Detail</h1>
             <p>Bang Name</p>
-            <input class="form-control" id="editBangName" placeholder="bang name"/>
+            <input className="form-control" id="editBangName" placeholder="bang name"/>
             <p>Bang Address</p>
-            <input class="form-control" id="editBangAddr" placeholder="bang address"/>
+            <input className="form-control" id="editBangAddr" placeholder="bang address"/>
             <p>Name</p>
-            <input class="form-control" id="editUsername" placeholder="name"/>
+            <input className="form-control" id="editUsername" placeholder="name"/>
             <p>Email</p>
-            <input class="form-control" id="editEmail" placeholder="email"/>
+            <input className="form-control" id="editEmail" placeholder="email"/>
             <button>Create</button>
           </form>
         </div>
